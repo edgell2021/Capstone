@@ -20,14 +20,21 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static("dist"));
 
-// Setup Server
-const port = 3000;
-const server = app.listen(port, listening);
+console.log(__dirname);
 
-function listening() {
-  console.log("server started");
-  console.log(`server number: ${port}`);
-}
+app.get("/", function(req, res) {
+  res.sendFile("./dist/index.html");
+});
+
+// designates what port the app will listen to for incoming requests
+app.listen(8081, function() {
+  console.log("Example app listening on port 8081!");
+});
+
+app.get("/test", function(req, res) {
+  console.log(mockAPIResponse);
+  res.send(mockAPIResponse);
+});
 
 //GET route
 app.get("/", function(req, res) {
