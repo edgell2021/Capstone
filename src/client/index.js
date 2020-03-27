@@ -1,3 +1,4 @@
-import "./styles/old-base.scss";
+import { performAction } from "./js/app";
+import "./styles/old-base.css";
 
 alert("check webpack");
