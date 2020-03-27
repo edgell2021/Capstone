@@ -1,3 +1,3 @@
-# Weather Journal
+# Capstone Project
 
-Initial code provided by Udacity. This project requires one to create an asynchronous web app that uses Web API and user data to dynamically update the UI in a Weather Journal application. Used Udacity examples fund thoughout lesson as basis for answer.
+Initial code based on Project 3 & Project 4. This project requires you to build out a travel app that, at a minimum, obtains a desired trip location & date from the user, and displays weather and an image of the location using information obtained from external APIs.
