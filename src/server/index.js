@@ -23,6 +23,7 @@ app.use(express.static("dist"));
 console.log(__dirname);
 
 app.get("/", function(req, res) {
+  console.log("HA");
   res.sendFile("./dist/index.html");
 });
 

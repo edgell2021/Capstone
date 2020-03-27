@@ -1,4 +1,6 @@
 import { performAction } from "./js/app";
-import "./styles/old-base.css";
+import "./styles/base.scss";
 
-alert("check webpack");
+export { performAction };
+
+alert("check webpack HA!");
