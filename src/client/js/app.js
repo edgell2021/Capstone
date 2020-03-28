@@ -11,17 +11,17 @@ let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  const city = document.getElementById("zip").value;
+  const city = document.getElementById("city").value;
   const feels = document.getElementById("feelings").value;
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     console.log(data);
-    postData("http://localhost:3000/weather", {
+    postData("http://localhost:3000/city", {
       date: newDate,
       feels: feels,
       name: data.geonames[0].name,
+      countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
-      long: data.geonames[0].lng,
-      country: data.geonames[0].countryName
+      lng: data.geonames[0].lng
     }).then(updateUI());
   });
 }
@@ -41,13 +41,15 @@ const updateUI = async () => {
   const request = await fetch("http://localhost:3000/all");
   try {
     const allData = await request.json();
+    console.log(allData[0]);
     const headers = document.getElementsByClassName("header");
     let key = allData.length - 1;
     for (let header of headers) {
       header.classList.remove("hide");
     }
     document.getElementById("date").innerHTML = allData[key].date;
-    document.getElementById("temp").innerHTML = allData[key].temp + "&#8457;";
+    document.getElementById("locationName").innerHTML =
+      allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
   } catch (error) {
     console.log("error", error);
@@ -68,6 +70,7 @@ const postData = async (url = "", data = {}) => {
 
   try {
     const newData = await response.json();
+    console.log(newData);
     return newData;
   } catch (error) {
     console.log("error", error);

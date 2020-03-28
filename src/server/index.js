@@ -37,17 +37,16 @@ app.get("/", function(req, res) {
 // POST route
 data = [];
 
-app.post("/weather", addData);
+app.post("/city", addData);
 function addData(req, res) {
   let newData = req.body;
-  console.log(newData);
   newEntry = {
     date: newData.date,
+    feels: newData.feels,
     name: newData.name,
+    countryName: newData.countryName,
     lat: newData.lat,
-    long: newData.lng,
-    country: newData.countryName,
-    feels: newData.feels
+    lng: newData.lng
   };
   data.push(newEntry);
   res.send(data);
@@ -57,5 +56,4 @@ function addData(req, res) {
 //GET request
 app.get("/all", function(req, res) {
   res.send(data);
-  console.log(data);
 });
