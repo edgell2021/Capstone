@@ -1,8 +1,6 @@
 /* Global Variables */
 const geoCodeURL = "http://api.geonames.org/searchJSON?q=";
 const geoCodeUserName = "&username=joedgell";
-const apiKey = "&APPID=a17ba8685d517879eb7f8157b36760f6";
-const units = "&units=imperial";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -10,13 +8,26 @@ let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
 document.getElementById("generate").addEventListener("click", performAction);
 
+function checkDate(e) {
+  var date = new Date();
+  date.setDate(date.getDate() + 7);
+  let day7 = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+  console.log(day7);
+}
+
 function performAction(e) {
   const city = document.getElementById("city").value;
   const feels = document.getElementById("feelings").value;
+  const depD = document.getElementById("depDate").value;
+  let date2 = new Date(depD);
+  let departureDate =
+    date2.getMonth() + 1 + "/" + date2.getDate() + "/" + date2.getFullYear();
+  checkDate();
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     console.log(data);
     postData("http://localhost:3000/city", {
       date: newDate,
+      depDate: departureDate,
       feels: feels,
       name: data.geonames[0].name,
       countryName: data.geonames[0].countryName,
@@ -41,13 +52,12 @@ const updateUI = async () => {
   const request = await fetch("http://localhost:3000/all");
   try {
     const allData = await request.json();
-    console.log(allData[0]);
     const headers = document.getElementsByClassName("header");
     let key = allData.length - 1;
     for (let header of headers) {
       header.classList.remove("hide");
     }
-    document.getElementById("date").innerHTML = allData[key].date;
+    document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
@@ -77,4 +87,4 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-export { performAction, getCityInfo, postData, updateUI };
+export { performAction, getCityInfo, postData, updateUI, checkDate };
