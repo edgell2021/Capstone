@@ -13,7 +13,7 @@ function performAction(e) {
   const newZip = document.getElementById("zip").value;
   const feels = document.getElementById("feelings").value;
   getWeatherInfo(baseURL, newZip, units, apiKey, feels).then(function(data) {
-    postData("/weather", {
+    postData("http://localhost:3000/weather", {
       date: newDate,
       feels: feels,
       temp: data.main.temp
@@ -33,7 +33,7 @@ const getWeatherInfo = async (baseURL, zip, units, key) => {
 };
 
 const updateUI = async () => {
-  const request = await fetch("/all");
+  const request = await fetch("http://localhost:3000/all");
   try {
     const allData = await request.json();
     const headers = document.getElementsByClassName("header");
@@ -69,4 +69,4 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-export { performAction };
+export { performAction, getWeatherInfo, postData, updateUI };
