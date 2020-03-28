@@ -1,5 +1,6 @@
 /* Global Variables */
-const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
+const geoCodeURL = "http://api.geonames.org/searchJSON?q=";
+const geoCodeUserName = "&username=joedgell";
 const apiKey = "&APPID=a17ba8685d517879eb7f8157b36760f6";
 const units = "&units=imperial";
 
@@ -10,19 +11,23 @@ let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  const newZip = document.getElementById("zip").value;
+  const city = document.getElementById("zip").value;
   const feels = document.getElementById("feelings").value;
-  getWeatherInfo(baseURL, newZip, units, apiKey, feels).then(function(data) {
+  getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
+    console.log(data);
     postData("http://localhost:3000/weather", {
       date: newDate,
       feels: feels,
-      temp: data.main.temp
+      name: data.geonames[0].name,
+      lat: data.geonames[0].lat,
+      long: data.geonames[0].lng,
+      country: data.geonames[0].countryName
     }).then(updateUI());
   });
 }
 
-const getWeatherInfo = async (baseURL, zip, units, key) => {
-  const res = await fetch(baseURL + zip + units + key);
+const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
+  const res = await fetch(geoCodeURL + city + geoCodeUserName);
   try {
     const data = await res.json();
     return data;
@@ -69,4 +74,4 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-export { performAction, getWeatherInfo, postData, updateUI };
+export { performAction, getCityInfo, postData, updateUI };

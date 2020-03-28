@@ -1,6 +1,6 @@
-import { performAction, getWeatherInfo, postData, updateUI } from "./js/app";
+import { performAction, getCityInfo, postData, updateUI } from "./js/app";
 import "./styles/base.scss";
 
-export { performAction, getWeatherInfo, postData, updateUI };
+export { performAction, getCityInfo, postData, updateUI };
 
 alert("check webpack HA!");

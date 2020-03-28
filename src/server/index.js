@@ -38,13 +38,15 @@ app.get("/", function(req, res) {
 data = [];
 
 app.post("/weather", addData);
-
 function addData(req, res) {
   let newData = req.body;
   console.log(newData);
   newEntry = {
     date: newData.date,
-    temp: newData.temp,
+    name: newData.name,
+    lat: newData.lat,
+    long: newData.lng,
+    country: newData.countryName,
     feels: newData.feels
   };
   data.push(newEntry);
