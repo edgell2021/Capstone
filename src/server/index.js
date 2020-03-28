@@ -1,6 +1,9 @@
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Require Express to run server and routes
 const express = require("express");
 
@@ -54,6 +57,17 @@ function addData(req, res) {
   res.send(data);
   console.log(data);
 }
+
+const dark_key = process.env.DARK_API_KEY;
+const dark_URL = "https://api.darksky.net/forecast/";
+
+app.post("/weather", function(req, res) {
+  console.log(req.body);
+  const url = dark_url/dark_key/
+  console.log(url)
+  }
+});
+
 
 //GET request
 app.get("/all", function(req, res) {

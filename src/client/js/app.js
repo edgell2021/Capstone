@@ -8,13 +8,6 @@ let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
 document.getElementById("generate").addEventListener("click", performAction);
 
-function checkDate(e) {
-  date2.setDate(date2.getDate() + 7);
-  let weekAhead =
-    date2.getMonth() + 1 + "/" + date2.getDate() + "/" + date2.getFullYear();
-  console.log(weekAhead);
-}
-
 function performAction(e) {
   const city = document.getElementById("city").value;
   const feels = document.getElementById("feelings").value;
@@ -62,6 +55,17 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   }
 };
 
+// const getWeatherInfo = async (geoCodeURL, city, geoCodeUserName) => {
+//   const res = await fetch(geoCodeURL + city + geoCodeUserName);
+//   try {
+//     const data = await res.json();
+//     return data;
+//   } catch (error) {
+//     console.log("error", error);
+//     // appropriately handle the error
+//   }
+// };
+
 const updateUI = async () => {
   const request = await fetch("http://localhost:3000/all");
   try {
@@ -101,4 +105,4 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-export { performAction, getCityInfo, postData, updateUI, checkDate };
+export { performAction, getCityInfo, postData, updateUI };
