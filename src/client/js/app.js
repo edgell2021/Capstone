@@ -9,10 +9,10 @@ let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 document.getElementById("generate").addEventListener("click", performAction);
 
 function checkDate(e) {
-  var date = new Date();
-  date.setDate(date.getDate() + 7);
-  let day7 = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
-  console.log(day7);
+  date2.setDate(date2.getDate() + 7);
+  let weekAhead =
+    date2.getMonth() + 1 + "/" + date2.getDate() + "/" + date2.getFullYear();
+  console.log(weekAhead);
 }
 
 function performAction(e) {
@@ -21,11 +21,25 @@ function performAction(e) {
   const depD = document.getElementById("depDate").value;
   let date2 = new Date(depD);
   let departureDate =
-    date2.getMonth() + 1 + "/" + date2.getDate() + "/" + date2.getFullYear();
-  checkDate();
+    date2.getUTCMonth() +
+    1 +
+    "/" +
+    date2.getUTCDate() +
+    "/" +
+    date2.getUTCFullYear();
+  date2.setDate(date2.getDate() + 7);
+  let weekAhead =
+    date2.getUTCMonth() +
+    1 +
+    "/" +
+    date2.getUTCDate() +
+    "/" +
+    date2.getUTCFullYear();
+  console.log(weekAhead);
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     console.log(data);
     postData("http://localhost:3000/city", {
+      weekAhead: weekAhead,
       date: newDate,
       depDate: departureDate,
       feels: feels,

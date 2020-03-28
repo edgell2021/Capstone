@@ -41,6 +41,7 @@ app.post("/city", addData);
 function addData(req, res) {
   let newData = req.body;
   newEntry = {
+    weekAhead: newData.weekAhead,
     depDate: newData.depDate,
     date: newData.date,
     feels: newData.feels,
