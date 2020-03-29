@@ -58,16 +58,25 @@ function addData(req, res) {
   console.log(data);
 }
 
-const dark_key = process.env.DARK_API_KEY;
+const dark_key = process.env.DARK_API_KEY + "/";
 const dark_URL = "https://api.darksky.net/forecast/";
 
-app.post("/weather", function(req, res) {
-  console.log(req.body);
-  const url = dark_url/dark_key/
-  console.log(url)
-  }
+app.get("/weatherKey", function(req, res) {
+  const url = dark_URL + dark_key;
+  console.log(url);
+  res.send(url);
 });
 
+// app.post("/weather", addData);
+// function addData(req, res) {
+//   let newData = req.body;
+//   newEntry = {
+//     timezone: newData.timezone
+//   };
+//   data.push(newEntry);
+//   res.send(data);
+//   // console.log(data);
+// }
 
 //GET request
 app.get("/all", function(req, res) {
