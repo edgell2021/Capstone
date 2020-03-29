@@ -3,9 +3,8 @@ const geoCodeURL = "http://api.geonames.org/searchJSON?q=";
 const geoCodeUserName = "&username=joedgell";
 
 const darkSkyBase = "http://localhost:3000/weatherKey";
-let latitude = "";
-let longitude = "";
-console.log(latitude);
+let latitude;
+let longitude;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -34,31 +33,29 @@ function performAction(e) {
     "/" +
     date2.getUTCFullYear();
 
-  getCityInfo(geoCodeURL, city, geoCodeUserName, feels)
-    .then(function(data) {
-      postData("http://localhost:3000/city", {
-        weekAhead: weekAhead,
-        date: newDate,
-        depDate: departureDate,
-        feels: feels,
-        name: data.geonames[0].name,
-        countryName: data.geonames[0].countryName,
-        lat: data.geonames[0].lat,
-        lng: data.geonames[0].lng
-      }).then(updateUI());
-    })
-    .then(coord());
+  getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
+    postData("http://localhost:3000/city", {
+      weekAhead: weekAhead,
+      date: newDate,
+      depDate: departureDate,
+      feels: feels,
+      name: data.geonames[0].name,
+      countryName: data.geonames[0].countryName,
+      lat: data.geonames[0].lat,
+      lng: data.geonames[0].lng
+    }).then(updateUI());
+  });
 
-  // getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
-  //   postData("http://localhost:3000/weather", {
-  //     timezone: data.timezone
-  //   }).then(updateUI());
-  // });
+  getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
+    postData("http://localhost:3000/weather", {
+      timezone: data.timezone
+    }).then(updateUI());
+  });
 }
 
 function coord() {
-  latitude = document.getElementById("latitude").value;
-  longitude = document.getElementById("longitude").value;
+  latitude = document.getElementById("latitude").innerText;
+  longitude = document.getElementById("longitude").innerText;
   console.log(latitude);
 }
 
@@ -100,6 +97,7 @@ const updateUI = async () => {
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
+    coord();
   } catch (error) {
     console.log("error", error);
   }
