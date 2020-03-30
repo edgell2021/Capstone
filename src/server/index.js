@@ -41,6 +41,7 @@ app.get("/", function(req, res) {
 data = [];
 
 app.post("/city", addData);
+
 function addData(req, res) {
   let newData = req.body;
   newEntry = {
@@ -55,25 +56,26 @@ function addData(req, res) {
   };
   data.push(newEntry);
   res.send(data);
-  console.log(data);
+  // console.log(data);
 }
 
 app.get("/weatherKey", function(req, res) {
-  console.log(projectData);
-  const url = `https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/`;
+  const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/`;
   res.send({ urlVal: url });
 });
 
-// app.post("/weather", addData);
-// function addData(req, res) {
-//   let newData = req.body;
-//   newEntry = {
-//     timezone: newData.timezone
-//   };
-//   data.push(newEntry);
-//   res.send(data);
-//   console.log(data);
-// }
+app.post("/weather", addDataDS);
+
+function addDataDS(req, res) {
+  console.log(projectData);
+  let newData = req.body;
+  newEntry = {
+    timezone: newData.timezone
+  };
+  data.push(newEntry);
+  res.send(data);
+  console.log(data);
+}
 
 //GET request
 app.get("/all", function(req, res) {

@@ -72,13 +72,10 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
     return data;
   } catch (error) {
     console.log("error", error);
-    // appropriately handle the error
   }
 };
 
 const getWeatherInfo = async (darkSkyBase, latitude, longitude) => {
-  console.log(darkSkyBase);
-  console.log(latitude + longitude);
   const res = await fetch(darkSkyBase + latitude + longitude);
   try {
     const data = await res.json();
