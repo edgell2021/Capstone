@@ -2,7 +2,7 @@
 const geoCodeURL = "http://api.geonames.org/searchJSON?q=";
 const geoCodeUserName = "&username=joedgell";
 
-const darkSkyBase = "http://localhost:3000/weatherKey";
+let darkSkyBase;
 let latitude;
 let longitude;
 
@@ -43,12 +43,24 @@ function performAction(e) {
       countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng
-    }).then(updateUI());
+    })
+      .then(getDSurl())
+      .then(updateUI());
   });
 }
 
+function getDSurl() {
+  fetch("http://localhost:3000/weatherKey")
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      darkSkyBase = data.urlVal;
+    });
+}
+
 function coord() {
-  latitude = document.getElementById("latitude").innerText;
+  latitude = document.getElementById("latitude").innerText + ",";
   longitude = document.getElementById("longitude").innerText;
   console.log(latitude);
 }
@@ -66,8 +78,8 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
 
 const getWeatherInfo = async (darkSkyBase, latitude, longitude) => {
   console.log(darkSkyBase);
-  console.log(latitude + "," + longitude);
-  const res = await fetch(darkSkyBase, latitude, longitude);
+  console.log(latitude + longitude);
+  const res = await fetch(darkSkyBase + latitude + longitude);
   try {
     const data = await res.json();
     return data;
