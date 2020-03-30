@@ -45,12 +45,6 @@ function performAction(e) {
       lng: data.geonames[0].lng
     }).then(updateUI());
   });
-
-  getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
-    postData("http://localhost:3000/weather", {
-      timezone: data.timezone
-    }).then(updateUI());
-  });
 }
 
 function coord() {
@@ -98,6 +92,11 @@ const updateUI = async () => {
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
     coord();
+    getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
+      postData("http://localhost:3000/weather", {
+        timezone: data.timezone
+      });
+    });
   } catch (error) {
     console.log("error", error);
   }
