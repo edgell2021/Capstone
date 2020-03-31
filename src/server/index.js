@@ -48,6 +48,7 @@ function addData(req, res) {
     weekAhead: newData.weekAhead,
     depDate: newData.depDate,
     date: newData.date,
+    time: newData.time,
     feels: newData.feels,
     name: newData.name,
     countryName: newData.countryName,
@@ -61,9 +62,11 @@ function addData(req, res) {
 
 app.get("/weatherKey", function(req, res) {
   console.log("HA");
-  let latitude = data[0].lat;
-  let longitude = data[0].lng;
-  const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/${latitude},${longitude}`;
+  let key = data.length - 1;
+  let latitude = data[key].lat;
+  let longitude = data[key].lng;
+  let time = data[key].time;
+  const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/${latitude},${longitude},${time}`;
   console.log(url);
   res.send({ urlVal: url });
 });
@@ -77,8 +80,7 @@ function addDataDS(req, res) {
     timezone: newData.timezone,
     temp: newData.temp,
     feelsLike: newData.feelsLike,
-    summary: newData.summary,
-    weekly: newData.weekly
+    summary: newData.summary
   };
   data.push(newEntry);
   res.send(data);

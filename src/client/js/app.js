@@ -32,12 +32,14 @@ function performAction(e) {
     date2.getUTCDate() +
     "/" +
     date2.getUTCFullYear();
-
+  let time = Math.floor(date2.getTime() / 1000);
+  console.log(time);
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     postData("http://localhost:3000/city", {
       weekAhead: weekAhead,
       date: newDate,
       depDate: departureDate,
+      time: time,
       feels: feels,
       name: data.geonames[0].name,
       countryName: data.geonames[0].countryName,
@@ -46,6 +48,17 @@ function performAction(e) {
     })
       .then(getDSurl())
       .then(updateUI());
+    setTimeout(() => {
+      getWeatherInfo(darkSkyBase).then(function(data) {
+        console.log(data);
+        postData("http://localhost:3000/weather", {
+          timezone: data.timezone,
+          temp: data.currently.temperature,
+          feelsLike: data.currently.apparentTemperature,
+          summary: data.hourly.summary
+        });
+      });
+    }, 500);
   });
 }
 
@@ -94,16 +107,6 @@ const updateUI = async () => {
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
-    getWeatherInfo(darkSkyBase).then(function(data) {
-      console.log(data);
-      postData("http://localhost:3000/weather", {
-        timezone: data.timezone,
-        temp: data.currently.temperature,
-        feelsLike: data.currently.apparentTemperature,
-        summary: data.hourly.summary,
-        weekly: data.daily.summary
-      });
-    });
   } catch (error) {
     console.log("error", error);
   }
