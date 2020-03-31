@@ -70,7 +70,11 @@ function addDataDS(req, res) {
   console.log(projectData);
   let newData = req.body;
   newEntry = {
-    timezone: newData.timezone
+    timezone: newData.timezone,
+    temp: newData.temp,
+    feelsLike: newData.feelsLike,
+    summary: newData.summary,
+    weekly: newData.weekly
   };
   data.push(newEntry);
   res.send(data);

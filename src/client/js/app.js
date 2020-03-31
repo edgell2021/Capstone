@@ -102,8 +102,13 @@ const updateUI = async () => {
     document.getElementById("content").innerHTML = allData[key].feels;
     coord();
     getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
+      console.log(data);
       postData("http://localhost:3000/weather", {
-        timezone: data.timezone
+        timezone: data.timezone,
+        temp: data.currently.temperature,
+        feelsLike: data.currently.apparentTemperature,
+        summary: data.hourly.summary,
+        weekly: data.daily.summary
       });
     });
   } catch (error) {
