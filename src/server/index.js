@@ -60,7 +60,11 @@ function addData(req, res) {
 }
 
 app.get("/weatherKey", function(req, res) {
-  const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/`;
+  console.log("HA");
+  let latitude = data[0].lat;
+  let longitude = data[0].lng;
+  const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/${latitude},${longitude}`;
+  console.log(url);
   res.send({ urlVal: url });
 });
 

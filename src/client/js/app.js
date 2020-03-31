@@ -59,12 +59,6 @@ function getDSurl() {
     });
 }
 
-function coord() {
-  latitude = document.getElementById("latitude").innerText + ",";
-  longitude = document.getElementById("longitude").innerText;
-  console.log(latitude);
-}
-
 const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   const res = await fetch(geoCodeURL + city + geoCodeUserName);
   try {
@@ -75,8 +69,8 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   }
 };
 
-const getWeatherInfo = async (darkSkyBase, latitude, longitude) => {
-  const res = await fetch(darkSkyBase + latitude + longitude);
+const getWeatherInfo = async darkSkyBase => {
+  const res = await fetch(darkSkyBase);
   try {
     const data = await res.json();
     return data;
@@ -100,8 +94,7 @@ const updateUI = async () => {
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
-    coord();
-    getWeatherInfo(darkSkyBase, latitude, longitude).then(function(data) {
+    getWeatherInfo(darkSkyBase).then(function(data) {
       console.log(data);
       postData("http://localhost:3000/weather", {
         timezone: data.timezone,
