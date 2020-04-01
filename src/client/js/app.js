@@ -45,7 +45,9 @@ function performAction(e) {
       countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng
-    }).then(getDSurl());
+    })
+      .then(getDSurl())
+      .then(updateUI());
     setTimeout(() => {
       getWeatherInfo(darkSkyBase).then(function(data) {
         console.log(data);
@@ -60,7 +62,7 @@ function performAction(e) {
   });
 }
 
-function getDSurl() {
+const getDSurl = () => {
   fetch("http://localhost:3000/weatherKey")
     .then(response => {
       return response.json();
@@ -68,7 +70,7 @@ function getDSurl() {
     .then(data => {
       darkSkyBase = data.urlVal;
     });
-}
+};
 
 const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   const res = await fetch(geoCodeURL + city + geoCodeUserName);
@@ -104,8 +106,8 @@ const updateUI = async () => {
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
-    document.getElementById("temp").innerHTML = allData[key + 1].temp;
-    document.getElementById("feelsLike").innerHTML = allData[key + 1].feelsLike;
+    document.getElementById("temp").innerHTML = allData[key].temp;
+    document.getElementById("feelsLike").innerHTML = allData[key].feelsLike;
   } catch (error) {
     console.log("error", error);
   }
