@@ -1,6 +1,3 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -32,12 +29,7 @@ function listening() {
   console.log(`server number: ${port}`);
 }
 
-//GET route
-app.get("/", function(req, res) {
-  res.send(projectData);
-});
-
-// POST route
+// Setup empty JS object to act as endpoint for all routes
 data = [];
 
 app.post("/city", addData);
@@ -74,7 +66,6 @@ app.get("/weatherKey", function(req, res) {
 app.post("/weather", addDataDS);
 
 function addDataDS(req, res) {
-  console.log(projectData);
   let newData = req.body;
   newEntry = {
     timezone: newData.timezone,

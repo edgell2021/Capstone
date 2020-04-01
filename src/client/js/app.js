@@ -45,9 +45,7 @@ function performAction(e) {
       countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng
-    })
-      .then(getDSurl())
-      .then(updateUI());
+    }).then(getDSurl());
     setTimeout(() => {
       getWeatherInfo(darkSkyBase).then(function(data) {
         console.log(data);
@@ -58,7 +56,7 @@ function performAction(e) {
           summary: data.hourly.summary
         });
       });
-    }, 500);
+    }, 800);
   });
 }
 
@@ -96,17 +94,18 @@ const updateUI = async () => {
   const request = await fetch("http://localhost:3000/all");
   try {
     const allData = await request.json();
+    console.log(allData);
     const headers = document.getElementsByClassName("header");
     let key = allData.length - 1;
     for (let header of headers) {
       header.classList.remove("hide");
     }
-    document.getElementById("latitude").innerHTML = allData[key].lat;
-    document.getElementById("longitude").innerHTML = allData[key].lng;
     document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
     document.getElementById("content").innerHTML = allData[key].feels;
+    document.getElementById("temp").innerHTML = allData[key + 1].temp;
+    document.getElementById("feelsLike").innerHTML = allData[key + 1].feelsLike;
   } catch (error) {
     console.log("error", error);
   }
@@ -126,7 +125,7 @@ const postData = async (url = "", data = {}) => {
 
   try {
     const newData = await response.json();
-    console.log(newData);
+    // console.log(newData);
     return newData;
   } catch (error) {
     console.log("error", error);
