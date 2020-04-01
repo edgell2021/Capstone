@@ -45,19 +45,20 @@ function performAction(e) {
       countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng
-    })
-      .then(getDSurl())
-      .then(updateUI());
+    }).then(getDSurl());
+    // .then(updateUI());
     setTimeout(() => {
-      getWeatherInfo(darkSkyBase).then(function(data) {
-        console.log(data);
-        postData("http://localhost:3000/weather", {
-          timezone: data.timezone,
-          temp: data.currently.temperature,
-          feelsLike: data.currently.apparentTemperature,
-          summary: data.hourly.summary
-        });
-      });
+      getWeatherInfo(darkSkyBase)
+        .then(function(data) {
+          console.log(data);
+          postData("http://localhost:3000/weather", {
+            timezone: data.timezone,
+            temp: data.currently.temperature,
+            feelsLike: data.currently.apparentTemperature,
+            summary: data.hourly.summary
+          });
+        })
+        .then(updateUI());
     }, 800);
   });
 }
