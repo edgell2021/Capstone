@@ -36,6 +36,8 @@ app.post("/city", addData);
 
 function addData(req, res) {
   let newData = req.body;
+  console.log("HA");
+  console.log(req);
   newEntry = {
     weekAhead: newData.weekAhead,
     depDate: newData.depDate,
@@ -53,7 +55,6 @@ function addData(req, res) {
 }
 
 app.get("/weatherKey", function(req, res) {
-  console.log("HA");
   let key = data.length - 1;
   let latitude = data[key].lat;
   let longitude = data[key].lng;
