@@ -33,7 +33,6 @@ function performAction(e) {
     "/" +
     date2.getUTCFullYear();
   let time = Math.floor(date2.getTime() / 1000);
-  console.log(time);
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     postData("http://localhost:3000/city", {
       weekAhead: weekAhead,
@@ -51,7 +50,7 @@ function performAction(e) {
       getWeatherInfo(darkSkyBase)
         .then(function(data) {
           console.log(data);
-          postData("http://localhost:3000/weather", {
+          postData("http://localhost:3000/city", {
             timezone: data.timezone,
             temp: data.currently.temperature,
             feelsLike: data.currently.apparentTemperature,

@@ -37,7 +37,6 @@ app.post("/city", addData);
 function addData(req, res) {
   let newData = req.body;
   console.log("HA");
-  console.log(req);
   newEntry = {
     weekAhead: newData.weekAhead,
     depDate: newData.depDate,
@@ -47,11 +46,15 @@ function addData(req, res) {
     name: newData.name,
     countryName: newData.countryName,
     lat: newData.lat,
-    lng: newData.lng
+    lng: newData.lng,
+    timezone: newData.timezone,
+    temp: newData.temp,
+    feelsLike: newData.feelsLike,
+    summary: newData.summary
   };
   data.push(newEntry);
   res.send(data);
-  // console.log(data);
+  console.log(data);
 }
 
 app.get("/weatherKey", function(req, res) {
@@ -63,21 +66,6 @@ app.get("/weatherKey", function(req, res) {
   console.log(url);
   res.send({ urlVal: url });
 });
-
-app.post("/weather", addDataDS);
-
-function addDataDS(req, res) {
-  let newData = req.body;
-  newEntry = {
-    timezone: newData.timezone,
-    temp: newData.temp,
-    feelsLike: newData.feelsLike,
-    summary: newData.summary
-  };
-  data.push(newEntry);
-  res.send(data);
-  console.log(data);
-}
 
 //GET request
 app.get("/all", function(req, res) {
