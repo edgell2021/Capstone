@@ -33,6 +33,7 @@ function performAction(e) {
     "/" +
     date2.getUTCFullYear();
   let time = Math.floor(date2.getTime() / 1000);
+  console.log(time);
   getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
     postData("http://localhost:3000/city", {
       weekAhead: weekAhead,
