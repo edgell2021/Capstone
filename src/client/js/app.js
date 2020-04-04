@@ -14,7 +14,6 @@ document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
   let city = document.getElementById("city").value;
-  let feels = document.getElementById("feelings").value;
   let depD = document.getElementById("depDate").value;
   let date2 = new Date(depD);
   let departureDate =
@@ -34,28 +33,27 @@ function performAction(e) {
     date2.getUTCFullYear();
   let time = Math.floor(date2.getTime() / 1000);
   console.log(time);
-  getCityInfo(geoCodeURL, city, geoCodeUserName, feels).then(function(data) {
+  getCityInfo(geoCodeURL, city, geoCodeUserName).then(function (data) {
     postData("http://localhost:3000/city", {
       weekAhead: weekAhead,
       date: newDate,
       depDate: departureDate,
       time: time,
-      feels: feels,
       name: data.geonames[0].name,
       countryName: data.geonames[0].countryName,
       lat: data.geonames[0].lat,
-      lng: data.geonames[0].lng
+      lng: data.geonames[0].lng,
     }).then(getDSurl());
     // .then(updateUI());
     setTimeout(() => {
       getWeatherInfo(darkSkyBase)
-        .then(function(data) {
+        .then(function (data) {
           console.log(data);
           postData("http://localhost:3000/city", {
             timezone: data.timezone,
             temp: data.currently.temperature,
             feelsLike: data.currently.apparentTemperature,
-            summary: data.hourly.summary
+            summary: data.hourly.summary,
           });
         })
         .then(updateUI());
@@ -65,10 +63,10 @@ function performAction(e) {
 
 const getDSurl = () => {
   fetch("http://localhost:3000/weatherKey")
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .then(data => {
+    .then((data) => {
       darkSkyBase = data.urlVal;
     });
 };
@@ -83,7 +81,7 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   }
 };
 
-const getWeatherInfo = async darkSkyBase => {
+const getWeatherInfo = async (darkSkyBase) => {
   const res = await fetch(darkSkyBase);
   try {
     const data = await res.json();
@@ -106,7 +104,6 @@ const updateUI = async () => {
     document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
-    document.getElementById("content").innerHTML = allData[key].feels;
     document.getElementById("temp").innerHTML = allData[key].temp;
     document.getElementById("feelsLike").innerHTML = allData[key].feelsLike;
   } catch (error) {
@@ -121,9 +118,9 @@ const postData = async (url = "", data = {}) => {
     method: "POST",
     credentials: "same-origin",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
 
   try {

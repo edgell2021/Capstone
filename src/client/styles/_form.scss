@@ -1,0 +1,50 @@
+.travel-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0;
+  align-items: center;
+  background-color: $primary-blue;
+  @media (min-width: 576px) {
+    grid-gap: 30px;
+  }
+
+  .holder {
+    font-size: 20px;
+    color: $primary-white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+
+    @media (min-width: 576px) {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    &.date {
+      grid-column: 1/ 4;
+      grid-row: 1;
+      @media (min-width: 576px) {
+        grid-column: 1/ 2;
+        grid-row: 1;
+      }
+    }
+
+    &.city {
+      grid-column: 1/ 4;
+      grid-row: 2;
+      @media (min-width: 576px) {
+        grid-column: 2/ 3;
+        grid-row: 1;
+      }
+    }
+
+    &.button {
+      grid-column: 1 / 4;
+      grid-row: 3;
+      @media (min-width: 576px) {
+        grid-column: 3/ 3;
+        grid-row: 1;
+      }
+    }
+  }
+}

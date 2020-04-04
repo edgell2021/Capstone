@@ -42,7 +42,6 @@ function addData(req, res) {
     depDate: newData.depDate,
     date: newData.date,
     time: newData.time,
-    feels: newData.feels,
     name: newData.name,
     countryName: newData.countryName,
     lat: newData.lat,

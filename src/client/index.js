@@ -3,9 +3,9 @@ import {
   getCityInfo,
   getWeatherInfo,
   postData,
-  updateUI
+  updateUI,
 } from "./js/app";
-import "./styles/base.scss";
+import "./styles/travel-app.scss";
 
 export { performAction, getCityInfo, getWeatherInfo, postData, updateUI };
 

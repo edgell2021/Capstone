@@ -2,45 +2,42 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Weather Journal</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>Travel App</title>
   </head>
   <body>
-    <div id="app">
-      <h1 class="holder headline">
-        Travel App
-      </h1>
-      <div class="holder zip">
-        <label for="city">Where are you going?</label>
-        <input type="text" id="city" placeholder="enter city here" />
-      </div>
-      <div class="holder zip">
-        <label for="depDate">When are you leaving?</label>
-        <input type="date" id="depDate" placeholder="enter date here" />
-      </div>
-      <div class="holder feel">
-        <label for="feelings">How are you feeling today?</label>
-        <textarea
-          class="myInput"
-          id="feelings"
-          placeholder="Enter your feelings here"
-          rows="9"
-          cols="50"
-        ></textarea>
-        <button id="generate" type="submit">Generate</button>
-      </div>
-      <div class="holder entry">
-        <h2 class="title">Most Recent Entry</h2>
-        <div id="entryHolder">
-          <h4 class="header hide">When I'm Leaving</h4>
-          <div id="date"></div>
-          <h4 class="header hide">Where I'm Going</h4>
-          <div id="locationName"></div>
-          <div id="temp"></div>
-          <div id="feelsLike"></div>
-          <h4 class="header hide">Today I'm Feeling:</h2class="hide">
-          <div id="content"></div>
+    <div id="app" class="container">
+      <section class="heading">
+        <h1 class="header">
+          Travel App
+        </h1>
+      </section>
+      <section class="travel-form">
+        <div class="holder date">
+          <label for="depDate">When are you leaving?</label>
+          <input type="date" id="depDate" placeholder="enter date here" />
         </div>
-      </div>
+        <div class="holder city">
+          <label for="city">Where are you going?</label>
+          <input type="text" id="city" placeholder="enter city here" />
+        </div>
+        <div class="holder button">
+          <label for="generate">Find Information</label>
+          <button id="generate" type="submit">Go</button>
+        </div>
+      </section>
+      <section>
+        <div class="holder entry">
+          <div id="entryHolder">
+            <h4 class="header hide">When I'm Leaving</h4>
+            <div id="date"></div>
+            <h4 class="header hide">Where I'm Going</h4>
+            <div id="locationName"></div>
+            <div id="temp"></div>
+            <div id="feelsLike"></div>
+          </div>
+        </div>
+      </section>
     </div>
   </body>
 </html>
