@@ -50,6 +50,7 @@ function addData(req, res) {
     temp: newData.temp,
     feelsLike: newData.feelsLike,
     summary: newData.summary,
+    picture: newData.webformatURL,
   };
   data.push(newEntry);
   res.send(data);
@@ -62,6 +63,16 @@ app.get("/weatherKey", function (req, res) {
   let longitude = data[key].lng;
   let time = data[key].time;
   const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/${latitude},${longitude},${time}`;
+  console.log(url);
+  res.send({ urlVal: url });
+});
+
+app.get("/pictureKey", function (req, res) {
+  let key = data.length - 1;
+  let name = data[key].name;
+  let place = encodeURIComponent(name);
+  console.log(place);
+  const url = `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=${process.env.PIC_API_KEY}&q=${place}`;
   console.log(url);
   res.send({ urlVal: url });
 });
