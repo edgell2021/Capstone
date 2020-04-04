@@ -49,14 +49,14 @@ function addData(req, res) {
     timezone: newData.timezone,
     temp: newData.temp,
     feelsLike: newData.feelsLike,
-    summary: newData.summary
+    summary: newData.summary,
   };
   data.push(newEntry);
   res.send(data);
   console.log(data);
 }
 
-app.get("/weatherKey", function(req, res) {
+app.get("/weatherKey", function (req, res) {
   let key = data.length - 1;
   let latitude = data[key].lat;
   let longitude = data[key].lng;
@@ -67,6 +67,6 @@ app.get("/weatherKey", function(req, res) {
 });
 
 //GET request
-app.get("/all", function(req, res) {
+app.get("/all", function (req, res) {
   res.send(data);
 });

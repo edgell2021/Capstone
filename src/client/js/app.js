@@ -44,7 +44,6 @@ function performAction(e) {
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng,
     }).then(getDSurl());
-    // .then(updateUI());
     setTimeout(() => {
       getWeatherInfo(darkSkyBase)
         .then(function (data) {
@@ -55,6 +54,11 @@ function performAction(e) {
             feelsLike: data.currently.apparentTemperature,
             summary: data.hourly.summary,
           });
+          document.getElementById("temp").innerHTML =
+            data.currently.temperature;
+          document.getElementById("feelsLike").innerHTML =
+            data.currently.apparentTemperature;
+          document.getElementById("summary").innerHTML = data.hourly.summary;
         })
         .then(updateUI());
     }, 800);
@@ -104,8 +108,6 @@ const updateUI = async () => {
     document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
-    document.getElementById("temp").innerHTML = allData[key].temp;
-    document.getElementById("feelsLike").innerHTML = allData[key].feelsLike;
   } catch (error) {
     console.log("error", error);
   }
