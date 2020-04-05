@@ -5,11 +5,13 @@ const geoCodeUserName = "&username=joedgell";
 let darkSkyBase;
 let pixBase;
 let timeToTrip;
+let tripLength;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
 let current = new Date().getTime();
 let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+let oneDay = 1000 * 60 * 60 * 24;
 
 document.getElementById("generate").addEventListener("click", performAction);
 
@@ -24,12 +26,25 @@ function performAction(e) {
     date2.getUTCDate() +
     "/" +
     date2.getUTCFullYear();
-  date2.setDate(date2.getDate() + 7);
+  let midnight = depD + " 23:59:59";
+  let returnD = document.getElementById("returnDate").value;
+  let returnDate = new Date(returnD);
+  let returnInfo =
+    returnDate.getUTCMonth() +
+    1 +
+    "/" +
+    returnDate.getUTCDate() +
+    "/" +
+    returnDate.getUTCFullYear();
   let time = Math.floor(date2.getTime() / 1000);
-  countDownTrip(depD);
+
+  countDownTrip(midnight);
+  tripTime(midnight, returnD);
   getCityInfo(geoCodeURL, city, geoCodeUserName).then(function (data) {
     postData("http://localhost:3000/city", {
       timeToTrip: timeToTrip,
+      tripLength: tripLength,
+      returnInfo: returnInfo,
       date: newDate,
       depDate: departureDate,
       time: time,
@@ -44,13 +59,20 @@ function performAction(e) {
   });
 }
 
-const countDownTrip = async (depD) => {
-  let midnight = depD + " 23:59:59";
+const countDownTrip = async (midnight) => {
   let future = new Date(midnight).getTime();
   let countdown = future - current;
-  let oneDay = 1000 * 60 * 60 * 24;
   timeToTrip = Math.floor(countdown / oneDay);
   return timeToTrip;
+};
+
+const tripTime = async (midnight, returnD) => {
+  let depart = new Date(midnight).getTime();
+  let dateR = new Date(returnD + " 23:59:59").getTime();
+  let countdown = dateR - depart;
+  tripLength = Math.floor(countdown / oneDay);
+  console.log(tripLength);
+  return tripLength;
 };
 
 const getDSurl = async () => {
@@ -138,7 +160,9 @@ const updateUI = async () => {
     document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
+    document.getElementById("returnData").innerHTML = allData[key].returnInfo;
     document.getElementById("countdown").innerHTML = allData[key].timeToTrip;
+    document.getElementById("returnInfo").innerHTML = allData[key].tripLength;
   } catch (error) {
     console.log("error", error);
   }

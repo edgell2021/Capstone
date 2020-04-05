@@ -40,6 +40,8 @@ function addData(req, res) {
   newEntry = {
     timeToTrip: newData.timeToTrip,
     depDate: newData.depDate,
+    returnInfo: newData.returnInfo,
+    tripLength: newData.tripLength,
     date: newData.date,
     time: newData.time,
     name: newData.name,

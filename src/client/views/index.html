@@ -17,6 +17,10 @@
           <label for="depDate">When are you leaving?</label>
           <input type="date" id="depDate" placeholder="enter date here" />
         </div>
+        <div class="holder return">
+          <label for="returnDate">When are you returning?</label>
+          <input type="date" id="returnDate" placeholder="enter date here" />
+        </div>
         <div class="holder city">
           <label for="city">Where are you going?</label>
           <input type="text" id="city" placeholder="enter city here" />
@@ -29,16 +33,23 @@
       <section>
         <div class="trip-info">
           <div class="trip-header">
-            <div class="date-results">
-              <h4 class="header">When I'm Leaving</h4>
-              <div id="date"></div>
-            </div>
             <div class="place-results">
               <h4 class="header">Where I'm Going</h4>
               <div id="locationName"></div>
             </div>
+            <div class="date-results">
+              <h4 class="header">When I Depart</h4>
+              <div id="date"></div>
+            </div>
+            <div class="date-results">
+              <h4 class="header">When I Return</h4>
+              <div id="returnData"></div>
+            </div>
             <div class="countdown">
               You will be leaving in <span id="countdown"></span> days.
+            </div>
+            <div class="countdown">
+              Your trip will last for <span id="returnInfo"></span> days.
             </div>
           </div>
           <div class="trip-img">

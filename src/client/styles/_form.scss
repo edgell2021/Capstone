@@ -4,9 +4,6 @@
   grid-gap: 0;
   align-items: center;
   background-color: $primary-blue;
-  @media (min-width: 576px) {
-    grid-gap: 30px;
-  }
 
   .holder {
     font-size: 20px;
@@ -29,7 +26,7 @@
       }
     }
 
-    &.city {
+    &.return {
       grid-column: 1/ 4;
       grid-row: 2;
       @media (min-width: 576px) {
@@ -38,12 +35,21 @@
       }
     }
 
-    &.button {
-      grid-column: 1 / 4;
+    &.city {
+      grid-column: 1/ 4;
       grid-row: 3;
       @media (min-width: 576px) {
-        grid-column: 3/ 3;
+        grid-column: 3/ 4;
         grid-row: 1;
+      }
+    }
+
+    &.button {
+      grid-column: 1 / 4;
+      grid-row: 4;
+      @media (min-width: 576px) {
+        grid-column: 1/4;
+        grid-row: 2;
       }
     }
   }
