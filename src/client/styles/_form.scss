@@ -24,6 +24,11 @@
         grid-column: 1/ 2;
         grid-row: 1;
       }
+
+      label {
+        display: block;
+        margin-bottom: 20px;
+      }
     }
 
     &.return {
@@ -32,6 +37,11 @@
       @media (min-width: 576px) {
         grid-column: 2/ 3;
         grid-row: 1;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 20px;
       }
     }
 
@@ -42,14 +52,46 @@
         grid-column: 3/ 4;
         grid-row: 1;
       }
+
+      label {
+        display: block;
+        margin-bottom: 20px;
+      }
     }
 
     &.button {
+      grid-column: 1 / 4;
+      grid-row: 5;
+      @media (min-width: 576px) {
+        padding-top: 0;
+        grid-column: 1/4;
+        grid-row: 3;
+      }
+    }
+
+    &.error-container {
+      padding-top: 0;
+      padding-bottom: 0;
       grid-column: 1 / 4;
       grid-row: 4;
       @media (min-width: 576px) {
         grid-column: 1/4;
         grid-row: 2;
+      }
+
+      .error-msg {
+        color: $primary-white;
+        font-weight: 400;
+        font-family: $font-cabin;
+        width: 100%;
+        margin: 0 auto;
+
+        &.hide {
+          display: none;
+        }
+        &.show {
+          display: block;
+        }
       }
     }
   }

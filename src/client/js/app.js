@@ -8,14 +8,38 @@ let timeToTrip;
 let tripLength;
 
 // Create a new date instance dynamically with JS
+const error = document.querySelector(".error-msg");
 let d = new Date();
 let current = new Date().getTime();
 let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 let oneDay = 1000 * 60 * 60 * 24;
 
-document.getElementById("generate").addEventListener("click", performAction);
+document.getElementById("generate").addEventListener("click", validateInput);
 
-function performAction(e) {
+function validateInput(e) {
+  let city = document.getElementById("city").value;
+  console.log(city);
+  let depD = document.getElementById("depDate").value;
+  let returnD = document.getElementById("returnDate").value;
+
+  if (city == "" || depD == "" || returnD == "") {
+    showMsg();
+  } else {
+    hideMsg();
+    performAction();
+  }
+}
+
+const hideMsg = () => {
+  error.classList.remove("show");
+  error.classList.add("hide");
+};
+
+const showMsg = () => {
+  error.classList.remove("hide");
+  error.classList.add("show");
+};
+const performAction = () => {
   let city = document.getElementById("city").value;
   let depD = document.getElementById("depDate").value;
   let date2 = new Date(depD);
@@ -57,7 +81,7 @@ function performAction(e) {
       .then(getDSurl())
       .then(updateUI);
   });
-}
+};
 
 const countDownTrip = async (midnight) => {
   let future = new Date(midnight).getTime();
@@ -88,7 +112,11 @@ const getDSurl = async () => {
         summary: data.hourly.summary,
       });
       document.getElementById("temp").innerHTML = data.currently.temperature;
-      document.getElementById("summary").innerHTML = data.hourly.summary;
+      if ((data.hourly.summary = "undefined")) {
+        return;
+      } else {
+        document.getElementById("summary").innerHTML = data.hourly.summary;
+      }
     });
     return data;
   } catch (error) {
