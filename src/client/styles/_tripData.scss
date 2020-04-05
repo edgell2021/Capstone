@@ -5,7 +5,7 @@
 .trip-info {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   align-items: start;
@@ -61,6 +61,14 @@
 
     .summary-info {
       padding-top: 20px;
+    }
+  }
+
+  .search-btn {
+    grid-area: 4 / 1 / 5 / 7;
+    text-align: center;
+    @media (min-width: 576px) {
+      grid-area: 3 / 1 / 4 / 7;
     }
   }
 

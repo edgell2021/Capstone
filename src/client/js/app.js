@@ -18,7 +18,6 @@ document.getElementById("generate").addEventListener("click", validateInput);
 
 function validateInput(e) {
   let city = document.getElementById("city").value;
-  console.log(city);
   let depD = document.getElementById("depDate").value;
   let returnD = document.getElementById("returnDate").value;
 
@@ -26,7 +25,7 @@ function validateInput(e) {
     showMsg();
   } else {
     hideMsg();
-    performAction();
+    performAction(city, depD, returnD);
   }
 }
 
@@ -39,9 +38,7 @@ const showMsg = () => {
   error.classList.remove("hide");
   error.classList.add("show");
 };
-const performAction = () => {
-  let city = document.getElementById("city").value;
-  let depD = document.getElementById("depDate").value;
+const performAction = (city, depD, returnD) => {
   let date2 = new Date(depD);
   let departureDate =
     date2.getUTCMonth() +
@@ -51,7 +48,6 @@ const performAction = () => {
     "/" +
     date2.getUTCFullYear();
   let midnight = depD + " 23:59:59";
-  let returnD = document.getElementById("returnDate").value;
   let returnDate = new Date(returnD);
   let returnInfo =
     returnDate.getUTCMonth() +
@@ -79,8 +75,15 @@ const performAction = () => {
     })
       .then(getPixurl())
       .then(getDSurl())
-      .then(updateUI);
+      .then(updateUI)
+      .then(clearInput());
   });
+};
+
+const clearInput = async () => {
+  document.getElementById("city").value = "";
+  document.getElementById("depDate").value = "";
+  document.getElementById("returnDate").value = "";
 };
 
 const countDownTrip = async (midnight) => {
@@ -95,7 +98,6 @@ const tripTime = async (midnight, returnD) => {
   let dateR = new Date(returnD + " 23:59:59").getTime();
   let countdown = dateR - depart;
   tripLength = Math.floor(countdown / oneDay);
-  console.log(tripLength);
   return tripLength;
 };
 
@@ -105,7 +107,6 @@ const getDSurl = async () => {
     const data = await res.json();
     darkSkyBase = data.urlVal;
     getWeatherInfo(darkSkyBase).then(function (data) {
-      console.log(data);
       postData("http://localhost:3000/city", {
         timezone: data.timezone,
         temp: data.currently.temperature,
@@ -180,7 +181,6 @@ const updateUI = async () => {
   const request = await fetch("http://localhost:3000/all");
   try {
     const allData = await request.json();
-    console.log(allData);
     const headers = document.getElementsByClassName("header");
     let key = allData.length - 1;
     for (let header of headers) {
@@ -199,7 +199,6 @@ const updateUI = async () => {
 
 //Client side Async POST
 const postData = async (url = "", data = {}) => {
-  console.log(data);
   const response = await fetch(url, {
     method: "POST",
     credentials: "same-origin",
@@ -211,7 +210,6 @@ const postData = async (url = "", data = {}) => {
 
   try {
     const newData = await response.json();
-    // console.log(newData);
     return newData;
   } catch (error) {
     console.log("error", error);
