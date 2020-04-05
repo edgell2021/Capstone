@@ -3,13 +3,10 @@
     text-align: center;
     font-family: $font-cabin;
     color: $primary-blue;
-    font-size: 26px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    font-size: 40px;
 
     @media (min-width: 576px) {
-      padding-top: 50px;
-      padding-bottom: 50px;
+      font-size: 52px;
     }
   }
 }

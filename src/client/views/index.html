@@ -28,28 +28,34 @@
       </section>
       <section>
         <div class="trip-info">
-          <div id="entryHolder">
-            <div class="trip-data">
-              <h2 class="header">Trip Info</h2>
+          <div class="trip-header">
+            <div class="date-results">
               <h4 class="header">When I'm Leaving</h4>
               <div id="date"></div>
+            </div>
+            <div class="place-results">
               <h4 class="header">Where I'm Going</h4>
               <div id="locationName"></div>
             </div>
-            <div class="trip-img">
-              <div class="img-container" id="pic">&nbsp;</div>
-              <div class="pixabay-logo" id="pic">
-                <a href="https://pixabay.com/">Pixabay Free Images</a>
-              </div>
+            <div class="countdown">
+              You will be leaving in <span id="countdown"></span> days.
             </div>
-            <div class="trip-data">
-              <h2 class="header">Weather</h2>
-              <h4 class="header">Temperature</h4>
-              <div id="temp"></div>
-              <h4 class="header">Feeks Like</h4>
-              <div id="feelsLike"></div>
-              <div id="summary"></div>
+          </div>
+          <div class="trip-img">
+            <div class="img-container" id="picCont">
+              <img
+                id="pic"
+                src="https://pixabay.com/get/57e2d3474a54ae14f1dc8460c62d3f7a1d3ad6e14e507441732f72d19f49c1_640.jpg"
+              />
             </div>
+            <div class="pixabay-logo" id="pic">
+              <a href="https://pixabay.com/">Pixabay Free Images</a>
+            </div>
+          </div>
+          <div class="trip-data">
+            <h2 class="header">Trip Weather</h2>
+            <div><span id="temp"></span>&#8457;</div>
+            <div id="summary"></div>
           </div>
         </div>
       </section>

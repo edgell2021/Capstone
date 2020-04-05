@@ -38,7 +38,7 @@ function addData(req, res) {
   let newData = req.body;
   console.log("HA");
   newEntry = {
-    weekAhead: newData.weekAhead,
+    timeToTrip: newData.timeToTrip,
     depDate: newData.depDate,
     date: newData.date,
     time: newData.time,
@@ -48,7 +48,6 @@ function addData(req, res) {
     lng: newData.lng,
     timezone: newData.timezone,
     temp: newData.temp,
-    feelsLike: newData.feelsLike,
     summary: newData.summary,
     picture: newData.webformatURL,
   };

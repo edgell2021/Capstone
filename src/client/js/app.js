@@ -4,9 +4,11 @@ const geoCodeUserName = "&username=joedgell";
 
 let darkSkyBase;
 let pixBase;
+let timeToTrip;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
+let current = new Date().getTime();
 let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
 document.getElementById("generate").addEventListener("click", performAction);
@@ -23,17 +25,11 @@ function performAction(e) {
     "/" +
     date2.getUTCFullYear();
   date2.setDate(date2.getDate() + 7);
-  let weekAhead =
-    date2.getUTCMonth() +
-    1 +
-    "/" +
-    date2.getUTCDate() +
-    "/" +
-    date2.getUTCFullYear();
   let time = Math.floor(date2.getTime() / 1000);
+  countDownTrip(depD);
   getCityInfo(geoCodeURL, city, geoCodeUserName).then(function (data) {
     postData("http://localhost:3000/city", {
-      weekAhead: weekAhead,
+      timeToTrip: timeToTrip,
       date: newDate,
       depDate: departureDate,
       time: time,
@@ -42,11 +38,20 @@ function performAction(e) {
       lat: data.geonames[0].lat,
       lng: data.geonames[0].lng,
     })
-      .then(getDSurl())
       .then(getPixurl())
+      .then(getDSurl())
       .then(updateUI);
   });
 }
+
+const countDownTrip = async (depD) => {
+  let midnight = depD + " 23:59:59";
+  let future = new Date(midnight).getTime();
+  let countdown = future - current;
+  let oneDay = 1000 * 60 * 60 * 24;
+  timeToTrip = Math.floor(countdown / oneDay);
+  return timeToTrip;
+};
 
 const getDSurl = async () => {
   const res = await fetch("http://localhost:3000/weatherKey");
@@ -58,12 +63,9 @@ const getDSurl = async () => {
       postData("http://localhost:3000/city", {
         timezone: data.timezone,
         temp: data.currently.temperature,
-        feelsLike: data.currently.apparentTemperature,
         summary: data.hourly.summary,
       });
       document.getElementById("temp").innerHTML = data.currently.temperature;
-      document.getElementById("feelsLike").innerHTML =
-        data.currently.apparentTemperature;
       document.getElementById("summary").innerHTML = data.hourly.summary;
     });
     return data;
@@ -83,8 +85,9 @@ const getPixurl = async () => {
         picture: data.hits[0].pageURL,
       });
       var img = new Image();
+      img.id = "pic";
       img.src = data.hits[0].webformatURL;
-      document.getElementById("pic").appendChild(img);
+      document.getElementById("pic").replaceWith(img);
     });
     return data;
   } catch (error) {
@@ -135,6 +138,7 @@ const updateUI = async () => {
     document.getElementById("date").innerHTML = allData[key].depDate;
     document.getElementById("locationName").innerHTML =
       allData[key].name + ", " + allData[key].countryName;
+    document.getElementById("countdown").innerHTML = allData[key].timeToTrip;
   } catch (error) {
     console.log("error", error);
   }
