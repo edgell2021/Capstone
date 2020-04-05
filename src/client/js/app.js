@@ -111,11 +111,11 @@ const getDSurl = async () => {
         temp: data.currently.temperature,
         summary: data.hourly.summary,
       });
+      let summaryInfo = document.getElementById("summary");
       document.getElementById("temp").innerHTML = data.currently.temperature;
-      if ((data.hourly.summary = "undefined")) {
-        return;
-      } else {
-        document.getElementById("summary").innerHTML = data.hourly.summary;
+      summaryInfo.innerHTML = data.hourly.summary;
+      if (summaryInfo.innerHTML != undefined) {
+        document.querySelector(".summary-info").classList.remove("hide");
       }
     });
     return data;
@@ -138,6 +138,7 @@ const getPixurl = async () => {
       img.id = "pic";
       img.src = data.hits[0].webformatURL;
       document.getElementById("pic").replaceWith(img);
+      document.querySelector(".info-container").classList.remove("hide");
     });
     return data;
   } catch (error) {

@@ -1,3 +1,7 @@
+.hide {
+  display: none;
+}
+
 .trip-info {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -53,6 +57,10 @@
     .header {
       font-size: 20px;
       font-family: $font-cabin;
+    }
+
+    .summary-info {
+      padding-top: 20px;
     }
   }
 
