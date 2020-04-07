@@ -16,6 +16,7 @@ let oneDay = 1000 * 60 * 60 * 24;
 
 document.getElementById("generate").addEventListener("click", validateInput);
 
+//error messaging
 function validateInput(e) {
   let city = document.getElementById("city").value;
   let depD = document.getElementById("depDate").value;
@@ -38,6 +39,7 @@ const showMsg = () => {
   error.classList.remove("hide");
   error.classList.add("show");
 };
+
 const performAction = (city, depD, returnD) => {
   let date2 = new Date(depD);
   let departureDate =
@@ -80,12 +82,14 @@ const performAction = (city, depD, returnD) => {
   });
 };
 
+//clear input fields after search
 const clearInput = async () => {
   document.getElementById("city").value = "";
   document.getElementById("depDate").value = "";
   document.getElementById("returnDate").value = "";
 };
 
+//calcualate time until trip begins
 const countDownTrip = async (midnight) => {
   let future = new Date(midnight).getTime();
   let countdown = future - current;
@@ -93,6 +97,7 @@ const countDownTrip = async (midnight) => {
   return timeToTrip;
 };
 
+//calculate trip time
 const tripTime = async (midnight, returnD) => {
   let depart = new Date(midnight).getTime();
   let dateR = new Date(returnD + " 23:59:59").getTime();
@@ -101,6 +106,7 @@ const tripTime = async (midnight, returnD) => {
   return tripLength;
 };
 
+//get weather data from DarkSky API
 const getDSurl = async () => {
   const res = await fetch("http://localhost:3000/weatherKey");
   try {
@@ -129,6 +135,7 @@ const getDSurl = async () => {
   }
 };
 
+//get picture related to travel spot from Pixabay API
 const getPixurl = async () => {
   const res = await fetch("http://localhost:3000/pictureKey");
   try {
@@ -150,6 +157,7 @@ const getPixurl = async () => {
   }
 };
 
+//get city information from GeoNames
 const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   const res = await fetch(geoCodeURL + city + geoCodeUserName);
   try {
@@ -160,6 +168,7 @@ const getCityInfo = async (geoCodeURL, city, geoCodeUserName) => {
   }
 };
 
+//get weather information from Darksky
 const getWeatherInfo = async (darkSkyBase) => {
   const res = await fetch(darkSkyBase);
   try {
@@ -170,6 +179,7 @@ const getWeatherInfo = async (darkSkyBase) => {
   }
 };
 
+//get picture infor form Pixabay
 const getPictureInfo = async (pixBase) => {
   const res = await fetch(pixBase);
   try {
