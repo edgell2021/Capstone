@@ -36,7 +36,6 @@ app.post("/city", addData);
 
 function addData(req, res) {
   let newData = req.body;
-  console.log("HA");
   newEntry = {
     timeToTrip: newData.timeToTrip,
     depDate: newData.depDate,
@@ -55,7 +54,6 @@ function addData(req, res) {
   };
   data.push(newEntry);
   res.send(data);
-  console.log(data);
 }
 
 app.get("/weatherKey", function (req, res) {
@@ -64,7 +62,6 @@ app.get("/weatherKey", function (req, res) {
   let longitude = data[key].lng;
   let time = data[key].time;
   const url = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.DARK_API_KEY}/${latitude},${longitude},${time}`;
-  console.log(url);
   res.send({ urlVal: url });
 });
 
@@ -72,9 +69,7 @@ app.get("/pictureKey", function (req, res) {
   let key = data.length - 1;
   let name = data[key].name;
   let place = encodeURIComponent(name);
-  console.log(place);
   const url = `https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=${process.env.PIC_API_KEY}&q=${place}`;
-  console.log(url);
   res.send({ urlVal: url });
 });
 
