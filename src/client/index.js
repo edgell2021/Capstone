@@ -1,10 +1,4 @@
-import {
-  performAction,
-  getCityInfo,
-  getWeatherInfo,
-  postData,
-  updateUI,
-} from "./js/app";
+import { performAction, validateInput } from "./js/app";
 import "./styles/travel-app.scss";
 
-export { performAction, getCityInfo, getWeatherInfo, postData, updateUI };
+export { performAction, validateInput };

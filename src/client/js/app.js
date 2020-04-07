@@ -216,4 +216,4 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-export { performAction, getCityInfo, getWeatherInfo, postData, updateUI };
+export { performAction, validateInput };
