@@ -115,8 +115,12 @@ const getDSurl = async () => {
       let summaryInfo = document.getElementById("summary");
       document.getElementById("temp").innerHTML = data.currently.temperature;
       summaryInfo.innerHTML = data.hourly.summary;
-      if (summaryInfo.innerHTML != undefined) {
+      console.log(summaryInfo.innerHTML);
+      if (summaryInfo.innerHTML != "undefined") {
         document.querySelector(".summary-info").classList.remove("hide");
+      } else {
+        document.querySelector(".summary-info").classList.remove("hide");
+        document.querySelector(".summary-info").classList.add("hide");
       }
     });
     return data;
@@ -131,7 +135,6 @@ const getPixurl = async () => {
     const data = await res.json();
     pixBase = data.urlVal;
     getPictureInfo(pixBase).then(function (data) {
-      console.log(data);
       postData("http://localhost:3000/city", {
         picture: data.hits[0].pageURL,
       });
